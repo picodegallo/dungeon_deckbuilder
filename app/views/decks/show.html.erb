@@ -10,6 +10,15 @@
   <%= @deck.description %>
 </p>
 
+<p>
+  <b>Cards:</b>
+  <% @deck.cards.each do |card| %>
+  <ul>
+    <li><%= card.name %> <%= card.strength %></li>
+  </ul>
+  <% end %>
+</p>
+
 
 <%= link_to 'Edit', edit_deck_path(@deck) %> |
 <%= link_to 'Back', decks_path %>

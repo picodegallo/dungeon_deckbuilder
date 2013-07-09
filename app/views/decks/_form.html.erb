@@ -19,6 +19,14 @@
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </div>
+
+    <% @deck.cards.each do |card| %>
+      <p>
+        Card: <%= text_field_tag 'cards[][name]', card.name %> 
+        Strength: <%= text_field_tag 'cards[][strength]', card.strength %>
+      </p>
+    <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

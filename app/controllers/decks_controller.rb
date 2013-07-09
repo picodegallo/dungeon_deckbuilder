@@ -25,6 +25,9 @@ class DecksController < ApplicationController
   # GET /decks/new.json
   def new
     @deck = Deck.new
+    5.times do 
+      @deck.cards.build
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,14 +46,10 @@ class DecksController < ApplicationController
     @deck = Deck.new()
     @deck.name = params[:deck][:name]
 
-    @deck.description = deck[:description]
+    @deck.description = params[:deck][:description]
 
     params[:cards].each do |card|
-      card = Card.new
-      card[:name] = card.name
-      card[:strength] = card.strength
-
-      @deck.cards << card
+      @deck.cards << Card.new(card) unless card[:name].empty?
     end
 
     if @deck.save
@@ -80,6 +79,7 @@ class DecksController < ApplicationController
   # DELETE /decks/1.json
   def destroy
     @deck = Deck.find(params[:id])
+    @deck.cards.destroy_all
     @deck.destroy
 
     respond_to do |format|
